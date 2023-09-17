@@ -1,0 +1,46 @@
+<h1 mat-dialog-title>Create new user</h1>
+<div mat-dialog-content>
+  <form [formGroup]="userForm" (ngSubmit)="onFormSubmit()">
+    <div mat-dialog-content class="content">
+      <div class="row">
+        <mat-form-field appearance="outline">
+          <mat-label>Name</mat-label>
+          <input
+            matInput
+            type="text"
+            placeholder="Petar Petrovic"
+            formControlName="name"
+          />
+          <mat-error
+            *ngIf="userForm.get('name')?.hasError('nameAlreadyExists')"
+          >
+            Username already <strong>exists</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-radio-group aria-label="Select an option" formControlName="active">
+          <mat-label><b>Gender</b></mat-label>
+          <mat-radio-button [value]="true">Active</mat-radio-button>
+          <mat-radio-button [value]="false" [checked]="true"
+            >Inactive</mat-radio-button
+          >
+        </mat-radio-group>
+      </div>
+    </div>
+    <div mat-dialog-actions class="action">
+      <button mat-raised-button type="button" [mat-dialog-close]="false">
+        Cancel
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="this.userForm.invalid"
+        type="submit"
+      >
+        {{ "Save" }}
+      </button>
+    </div>
+  </form>
+</div>
